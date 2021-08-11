@@ -1,20 +1,26 @@
-import { EXAMPLE, EXAMPLE2 } from '../actions/favoriteActions.js';
+import { TOGGLE_FAVORITES, ADD_FAVORITES, REMOVE_FAVORITES } from '../actions/favoriteActions.js';
 
 const initialState = {
     favorites: [],
-    displayFavorite: false
+    displayFavorites: false
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case EXAMPLE:
+        case TOGGLE_FAVORITES:
             return {
-                
+                ...state,
+                displayFavorites: !state.displayFavorites
             }
-        case EXAMPLE2:
+        case ADD_FAVORITES:
             return {
-                
+                ...state,
+                favorites: [...state.favorites, action.payload]
                 }
+        case REMOVE_FAVORITES:
+            return {
+                favorites: state.favorites.filter(item => (action.payload !== item.id))
+            }
         default:
             return state;
     }
